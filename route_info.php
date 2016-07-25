@@ -10,7 +10,7 @@ $upstops = get_field('up');
 if ( $upstops ): ?>
 <h4>Up Route:</h4>
 <?php /*Make the map, set center as first stop's co-ords */
-echo do_shortcode( '[leaflet-map height=300 lat=' . get_field('stop-lat-long', $upstops[0]->ID)['lat'] .
+echo do_shortcode( '[leaflet-map zoomcontrol=1 height=300 lat=' . get_field('stop-lat-long', $upstops[0]->ID)['lat'] .
 	' lng=' . get_field('stop-lat-long', $upstops[0]->ID)['lng'] . ' zoom=12]'); 
 echo 'Schedule: ' . showTiming('A');
 ?>
@@ -50,7 +50,7 @@ if ( $downstops ): ?>
 <h4>Down Route:</h4>
 
 <?php /*Make the map, set center as first stop's co-ords */
-echo do_shortcode( '[leaflet-map height=300 lat=' . get_field('stop-lat-long', $downstops[0]->ID)['lat'] .
+echo do_shortcode( '[leaflet-map zoomcontrol=1 height=300 lat=' . get_field('stop-lat-long', $downstops[0]->ID)['lat'] .
 	' lng=' . get_field('stop-lat-long', $downstops[0]->ID)['lng'] . ' zoom=12]'); 
 	
 echo 'Schedule: ' . showTiming('B');
