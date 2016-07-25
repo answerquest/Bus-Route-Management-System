@@ -3,16 +3,16 @@ if ( get_post_type() == 'route' ) {  /* MAIN ROUTE CHECK */
 if (get_field('route')) 
   echo 'Route num/code: <b>'.get_field('route').'</b>';
 if (get_field('route_type')) 
-  echo '&nbsp; | &nbsp;Route type: <b>'.get_field('route_type'). '</b>';
+  echo '&nbsp; | &nbsp;Route type: <b>'. showRouteType( get_field('route_type') ) . '</b>';
 
 /* DISPLAY UP STOPS */
 $upstops = get_field('up');
 if ( $upstops ): ?>
 <h4>Up Route:</h4>
-
 <?php /*Make the map, set center as first stop's co-ords */
 echo do_shortcode( '[leaflet-map height=300 lat=' . get_field('stop-lat-long', $upstops[0]->ID)['lat'] .
 	' lng=' . get_field('stop-lat-long', $upstops[0]->ID)['lng'] . ' zoom=12]'); 
+echo 'Schedule: ' . showTiming('A');
 ?>
 
 <small><ol>
@@ -51,7 +51,10 @@ if ( $downstops ): ?>
 
 <?php /*Make the map, set center as first stop's co-ords */
 echo do_shortcode( '[leaflet-map height=300 lat=' . get_field('stop-lat-long', $downstops[0]->ID)['lat'] .
-	' lng=' . get_field('stop-lat-long', $downstops[0]->ID)['lng'] . ' zoom=12]'); ?>
+	' lng=' . get_field('stop-lat-long', $downstops[0]->ID)['lng'] . ' zoom=12]'); 
+	
+echo 'Schedule: ' . showTiming('B');
+?>
 
 <small><ol>
 <?php $downCounter = 1; $mapLine = ''; ?>
@@ -78,6 +81,26 @@ echo do_shortcode( '[leaflet-map height=300 lat=' . get_field('stop-lat-long', $
 echo do_shortcode('[leaflet-line latlngs="' . $mapLine . '"]');
 ?>
 <hr>
+
 <?php endif; /* END OF DISPLAY DOWN STOPS */
 
 } /*END OF MAIN ROUTE CHECK */
+
+function showRouteType($var) {
+	if($var == 'double') return 'Different Up and Down route';
+	else if($var == 'single') return 'Same Up and Down route';
+	else if($var == 'circular') return 'Circular route';
+	else return 'Not specified or error.';
+}
+
+function showTiming($Dir) {
+	if( get_field('schedule_type') == 'frequency' ) {
+		return 'First trip: <b>' . get_field($Dir.'_first_trip') . '</b>&nbsp;&nbsp;|&nbsp;&nbsp;' . 
+			'Frequency: <b>' . get_field('frequency') . ' mins</b>&nbsp;&nbsp;|&nbsp;&nbsp;' . 
+			'Last trip: <b>' . get_field($Dir.'_last_trip') .'</b>';
+	}
+	else if ( get_field('schedule_type') == 'timings' ) {
+		return get_field($Dir.'_timings');
+	}
+	else return 'Error!';
+}
