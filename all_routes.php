@@ -23,9 +23,9 @@ if( $my_query->have_posts() ) {
 	<tr>
 	<td><?php 
 	$routeType = get_field('route_type');
-	if( $routeType == 'circular' ) echo '<img src="http://localhost/bus/wp-content/uploads/2016/07/route-circular.png" title="Circular">';
-	else if( $routeType == 'single' ) echo '<img src="http://localhost/bus/wp-content/uploads/2016/07/route-single.png" title="Same route in up and down direction">';
-	else if( $routeType == 'double' ) echo '<img src="http://localhost/bus/wp-content/uploads/2016/07/route-double.png" title="Different route in up and down direction">';
+	if( $routeType == 'circular' ) echo '<img src="http://busroutes.freewebsitehosting.cu.cc/wp-content/uploads/2016/08/route-circular.png" title="Circular">';
+	else if( $routeType == 'single' ) echo '<img src="http://busroutes.freewebsitehosting.cu.cc/wp-content/uploads/2016/08/route-single.png" title="Same route in up and down direction">';
+	else if( $routeType == 'double' ) echo '<img src="http://busroutes.freewebsitehosting.cu.cc/wp-content/uploads/2016/08/route-double.png" title="Different route in up and down direction">';
 	else echo 'error!';
 	?></td>
 	<td><strong><a href="<?php the_permalink() ?>"><?php the_field('route') ?></a></strong></td>
